@@ -1,5 +1,7 @@
 ### Tushar
 
+#### backend server
+#### mail server wala part
 
 
 
@@ -7,7 +9,8 @@
 
 ### Manav
 
-
+#### login  signup  exploratory
+#### next.js Landing
 
 
 
@@ -16,16 +19,18 @@
 
 ### Rajan
 
-
+#### collobative ide
+#### Workflows sare
 
 
 
 ### To be picked
 
-# Understand workflows of github actions
+# low  Understand workflows of github actions
 
-# Analysis on possible backend options (Database:"",Orm :"",Api:"",Server:"")
+# High Analysis on possible backend options (Database:"Postgrsql",Orm :"Prisma",Api:"GraphQL",Server:"apollo server express as a middleware",cache:"redis")
 
-# Analysis on Frontend options ()
+# High Analysis on Frontend options ()
 
-# Docker actions that can be done
+# High --->Docker actions that can be done locally test
+# (for prod) --> Lamda functions amazon aws
