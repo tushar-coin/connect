@@ -34,3 +34,6 @@
 
 # High --->Docker actions that can be done locally test
 # (for prod) --> Lamda functions amazon aws
+
+# HIGH -> FIGURE HOW TO SHOW ONLY POST OF FOLLOWERS
+# Low -> FIGURE HOW TO SHOW POST LIKED BY FOLLOWERS, BASED ON SOME TAGS
