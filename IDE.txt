@@ -1,0 +1,15 @@
+Technology Stack:
+Frontend:
+Framework: Next.js (React framework with server-side rendering capabilities)
+Real-Time Collaboration: Socket.IO (WebSocket library for real-time communication)
+Code Editor Component: Monaco Editor (Feature-rich code editor used in VS Code)
+UI Framework: Material-UI (React UI framework for building responsive web applications)
+State Management: (OPTIONAL)Redux (Predictable state container for managing application state)
+
+
+Backend:
+Framework: Express.js (Minimalist web framework for Node.js)
+Database: MongoDB (NoSQL database for storing user data and collaboration sessions)
+Authentication: Passport.js (Authentication middleware for Node.js)
+Real-Time Communication: Socket.IO (WebSocket library for bidirectional communication)
+Code Execution Sandbox: AWS lambda will be used.
