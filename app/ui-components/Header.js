@@ -1,35 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import logo from "../public/images/logo.png";
+import SearchBar from "./searchBar";
 
 const Header = () => {
-  const [search, setSearch] = useState("");
-  const [users, setUsers] = useState([]);
-  const GetUserData = async (e) => {
-    e.preventDefault();
-    // todo : get users based on search value
-    let data = await fetch("/users/search");
-    data = await data.json(); // should be array of objects
-    setUsers(data);
-  };
   return (
-    <div>
-      <div>
-        <div>LOGO</div>
-        <div>
-          <form onSubmit={GetUserData}>
-            <input
-              placeholder="search user"
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-              }}
-            />
-          </form>
+    <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0  border-b border-gray-200 dark:border-gray-600">
+      <div className="flex items-center space-x-3 rtl:space-x-reverse ">
+        <Link
+          href="/"
+          className="flex flex-row items-center space-x-3 rtl:space-x-reverse basis-1/6"
+        >
+          <Image width={45} src={logo} />
+          <span className="text-2xl">Connect</span>
+        </Link>
+        <div className="basis-2/6 self-start">
+          <SearchBar />
+        </div>
+        <div className="basis-1/2 mx-10 flex-grow">
+          <ul className="flex flex-row justify-between">
+            <li>Home</li>
+            <li>Posts</li>
+            <li>Notifications</li>
+            <li>User</li>
+          </ul>
         </div>
       </div>
-      <div></div>
-    </div>
+    </nav>
   );
 };
 
