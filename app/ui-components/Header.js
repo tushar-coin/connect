@@ -4,27 +4,65 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "../public/images/logo.png";
 import SearchBar from "./searchBar";
+import UserDropdown from "./user-dropdown";
 
 const Header = () => {
   return (
-    <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0  border-b border-gray-200 dark:border-gray-600">
-      <div className="flex items-center space-x-3 rtl:space-x-reverse ">
-        <Link
-          href="/"
-          className="flex flex-row items-center space-x-3 rtl:space-x-reverse basis-1/6"
-        >
-          <Image width={45} src={logo} />
-          <span className="text-2xl">Connect</span>
-        </Link>
-        <div className="basis-2/6 self-start">
+    <nav className="bg-white dark:bg-gray-800 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div className="basis-[15%]">
+          <a
+            href="/"
+            className="flex items-center space-x-3 rtl:space-x-reverse"
+          >
+            <Image src={logo} alt="Flowbite Logo" width={50} height={80} />
+            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+              Connect
+            </span>
+          </a>
+        </div>
+
+        <div className="basis-[29%]">
           <SearchBar />
         </div>
-        <div className="basis-1/2 mx-10 flex-grow">
-          <ul className="flex flex-row justify-between">
-            <li>Home</li>
-            <li>Posts</li>
-            <li>Notifications</li>
-            <li>User</li>
+
+        <div className="basis-[38%]">
+          <ul className="flex flex-row justify-between items-center">
+            <li>
+              <Link href="/">
+                <span className="text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300">
+                  Home
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/">
+                <span className="text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300">
+                  Network
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/">
+                <span className="text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300">
+                  Messages
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/">
+                <span className="text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300">
+                  Notification
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/">
+                <span className="text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300">
+                  <UserDropdown />
+                </span>
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
