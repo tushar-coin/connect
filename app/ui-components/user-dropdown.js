@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
-const UserDropdown = () => {
+const UserDropdown = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   let User = {};
   const dropdownRef = useRef(null);
@@ -39,6 +40,8 @@ const UserDropdown = () => {
     };
   }, []);
 
+  const { user } = props;
+
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -50,27 +53,27 @@ const UserDropdown = () => {
       {isOpen ? (
         <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10 dark:bg-gray-700">
           <div className="block px-4 py-2 text-sm text-gray-700 border-b-4 dark:text-slate-200 cursor-default">
-            Username
-            <p>Add user info here</p>
+            {`${user.firstName} ${user.lastName}`}
+            <p>{`${user.email}`}</p>
           </div>
-          <a
+          <Link
             href="#"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-slate-200 hover:dark:text-slate-100"
           >
             Profile
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-slate-200 hover:dark:text-slate-100"
           >
             Settings
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:rounded-lg dark:hover:bg-gray-600 dark:text-slate-200 hover:dark:text-slate-100"
           >
             Sign out
-          </a>
+          </Link>
         </div>
       ) : (
         <></>

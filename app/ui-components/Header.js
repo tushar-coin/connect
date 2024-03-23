@@ -6,7 +6,8 @@ import logo from "../public/images/logo.png";
 import SearchBar from "./searchBar";
 import UserDropdown from "./user-dropdown";
 
-const Header = () => {
+const Header = (props) => {
+  const { user } = props;
   return (
     <nav className="bg-white dark:bg-gray-800 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -59,7 +60,7 @@ const Header = () => {
             <li>
               <Link href="/">
                 <span className="text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300">
-                  <UserDropdown />
+                  <UserDropdown user={user} />
                 </span>
               </Link>
             </li>

@@ -1,11 +1,27 @@
 "use client";
 import Header from "@/ui-components/Header";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
+  const router = useRouter();
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    axios
+      .get("/api/user")
+      .then((res) => {
+        setUser(res.data.data);
+      })
+      .catch((err) => {
+        router.push("/auth/login");
+      });
+  }, []);
+
   return (
     <div>
       <div id="header">
-        <Header />
+        <Header user={user} />
       </div>
       {/* <div id="body">
         <div className="flex flex-row justify-between">
