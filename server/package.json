@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "run-server": "node --watch server.js"
+    "run-server": "node --watch build/index.js"
   },
   "repository": "https://github.com/tushar-coin/connect.git",
   "author": "Tushar Bairi <tusharbairi75@gmail.com>",
