@@ -23,6 +23,14 @@ model User{
   email String @unique
 
   @@map("users")
-
 }
-// npx prisma migrate dev --name update_user_table
+
+model Post{
+  id String @id @default(uuid())
+  content String
+  likesCounter String[] 
+  spamCounter String[]
+  creator String
+  @@map("posts")
+}
+// npx prisma migrate dev --name update_post_table
