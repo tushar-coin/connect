@@ -1,3 +1,5 @@
 # TODO FOR AUTH
 
-## VERIFY EMAIL
+## MEDIUM -> VERIFY EMAIL
+
+### LOW -> MODALS for each button (disappear when out of focus)
