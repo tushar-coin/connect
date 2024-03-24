@@ -3,12 +3,10 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import defaultProfilePic from "@/public/images/profileImageDefault.png";
 import axios from "axios";
 
 const UserDropdown = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  let User = {};
   const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
@@ -57,11 +55,6 @@ const UserDropdown = (props) => {
     }
   };
 
-  console.log(User);
-  if (!User.profilePic) {
-    User.profilePic = defaultProfilePic;
-  }
-
   const { user } = props;
 
   return (
@@ -71,7 +64,7 @@ const UserDropdown = (props) => {
         className="flex items-center text-sm focus:outline-none"
       >
         <Image
-          src={User.profilePic}
+          src={user.profilePic}
           width={45}
           alt="user"
           className="rounded-full"

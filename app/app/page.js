@@ -3,6 +3,19 @@ import Header from "@/ui-components/Header";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import UserCard from "@/ui-components/UserCard";
+import defaultProfilePic from "@/public/images/profileImageDefault.png";
+import Post from "@/ui-components/post";
+
+/*
+required format for user object
+    User = {
+        id
+        name
+        email
+        profilePic
+    }
+*/
 
 const Home = () => {
   const router = useRouter();
@@ -16,21 +29,38 @@ const Home = () => {
       .catch((err) => {
         router.push("/auth/login");
       });
+
+    //////
+    //////
+    ////// GET POSTS TO DISPLAY
+    //////
+    //////
   }, []);
+  if (!user.profilePic) {
+    user.profilePic = defaultProfilePic;
+  }
 
   return (
-    <div>
-      <div id="header">
+    <div className="flex flex-col h-screen overflow-y-hidden">
+      <div id="header" className="sticky top-0 z-10">
         <Header user={user} router={router} />
       </div>
-      {/* <div id="body">
-        <div className="flex flex-row justify-between">
-          <div className="bg-black basis-1/4">1</div>
-          <div className="basis-1/2">2</div>
-          <div className="bg-black basis-1/4">3</div>
+      <div id="body" className="h-screen mx-36">
+        <div className="flex flex-row justify-between h-screen sticky ">
+          <div className="bg-blue-500 h-[60vh] basis-[20%] mx-8 my-20 rounded-lg">
+            <UserCard user={user} />
+          </div>
+
+          <div className="basis-[55%] h-[85%] no-scrollbar bg-slate-700 mx-auto my-5 p-5 rounded-lg overflow-hidden hover:overflow-y-auto">
+            <Post />
+          </div>
+
+          <div className="bg-blue-500 basis-[25%] h-[60vh] mx-8 my-20 rounded-lg">
+            3
+          </div>
         </div>
       </div>
-      <div id="footer"></div> */}
+      <div id="footer"></div>
     </div>
   );
 };
