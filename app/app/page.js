@@ -21,7 +21,7 @@ const Home = () => {
   return (
     <div>
       <div id="header">
-        <Header user={user} />
+        <Header user={user} router={router} />
       </div>
       {/* <div id="body">
         <div className="flex flex-row justify-between">

@@ -58,11 +58,9 @@ const Header = (props) => {
               </Link>
             </li>
             <li>
-              <Link href="/">
-                <span className="text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300">
-                  <UserDropdown user={user} />
-                </span>
-              </Link>
+              <span className="text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300">
+                <UserDropdown user={user} router={props.router} />
+              </span>
             </li>
           </ul>
         </div>

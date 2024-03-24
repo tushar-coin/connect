@@ -45,32 +45,40 @@ const Signup = () => {
       });
       return;
     }
-    let res = await axios.put("http://localhost:3000/api/auth/signup", {
-      user: {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        password: user.password,
-      },
-    });
-    res = await res.data;
-    console.log(res);
-    if (res.success) {
-      alert("Signup successful");
-      router.push("/auth/login");
-    } else {
+    try {
+      let res = await axios.put("/api/auth/signup", {
+        user: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          password: user.password,
+        },
+      });
+      res = await res.data;
+      console.log(res);
+      if (res.success) {
+        alert("Signup successful");
+        router.push("/auth/login");
+      } else {
+        setError({
+          isError: true,
+          message: res.message,
+        });
+      }
+    } catch (err) {
+      console.log(err.response.data.message);
       setError({
         isError: true,
-        message: res.message,
+        message: err.response.data.message,
       });
     }
   };
 
   return (
     <div>
-      <div className="w-[40%] mx-auto bg-slate-100 p-20 rounded-2xl m-3 pt-5">
+      <div className="w-[40%] mx-auto bg-slate-100 p-20 rounded-2xl m-3 pt-5 dark:bg-slate-800">
         <h1 className="text-6xl font-bold text-center mb-3">CONNECT</h1>
-        <div className="p-4 bg-slate-200 mt-10 rounded-lg">
+        <div className="p-4 bg-slate-200 mt-10 rounded-lg dark:bg-slate-700">
           <h1 className="text-3xl font-semibold text-center mb-3">Signup</h1>
           <form onSubmit={handleSubmit}>
             <div className="flex flex-row justify-between">
@@ -198,7 +206,7 @@ const Signup = () => {
                 Already a user?{" "}
                 <Link
                   href="/auth/login"
-                  className="text-blue-600 hover:text-blue-700 hover:underline"
+                  className="text-blue-600 hover:text-blue-700 hover:underline dark:text-blue-200 dark:hover:text-blue-300"
                 >
                   Login
                 </Link>

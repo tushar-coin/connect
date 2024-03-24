@@ -21,21 +21,28 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/api/auth/login", { user });
-    const data = res.data;
-    console.log(res.data);
-    if (data.success) {
-      router.push("/");
-    } else {
-      setError({ isError: true, message: data.message });
+    try {
+      const res = await axios.post("/api/auth/login", { user });
+      const data = res.data;
+      console.log(res.data);
+      if (data.success) {
+        router.push("/");
+      } else {
+        setError({ isError: true, message: data.message });
+      }
+    } catch (err) {
+      setError({
+        isError: true,
+        message: err.response.data.message,
+      });
     }
   };
 
   return (
     <div>
-      <div className="w-[40%] mx-auto bg-slate-100 p-20 rounded-2xl m-3 pt-5">
+      <div className="w-[40%] mx-auto bg-slate-100 p-20 rounded-2xl m-3 pt-5 dark:bg-slate-800">
         <h1 className="text-6xl font-bold text-center mb-3">CONNECT</h1>
-        <div className="p-4 bg-slate-200 mt-10 rounded-lg">
+        <div className="p-4 bg-slate-200 mt-10 rounded-lg dark:bg-slate-700">
           <h1 className="text-3xl font-semibold text-center mb-3">Login</h1>
           <form onSubmit={handleSubmit}>
             <div className="relative z-0 w-full mb-5 group">
@@ -61,7 +68,7 @@ const Login = () => {
 
             <div className="relative z-0 w-full mb-5 group">
               <input
-                type="text"
+                type="password"
                 name="floating_password"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
@@ -96,7 +103,7 @@ const Login = () => {
                 Not a user?{" "}
                 <Link
                   href="/auth/signup"
-                  className="text-blue-600 hover:text-blue-700 hover:underline"
+                  className="text-blue-600 hover:text-blue-700 hover:underline dark:text-blue-200 dark:hover:text-blue-300"
                 >
                   Signup
                 </Link>
