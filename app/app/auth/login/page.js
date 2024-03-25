@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import BUTTON from "@/ui-components/BUTTON";
+import Modal from "@/ui-components/modal";
 import Link from "next/link";
 import axios from "axios";
 
@@ -18,19 +19,26 @@ const Login = () => {
     isError: false,
     message: "",
   });
+  const [message, setMessage] = useState({
+    show: false,
+    message: "",
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post("/api/auth/login", { user });
       const data = res.data;
-      console.log(res.data);
       if (data.success) {
         router.push("/");
       } else {
         setError({ isError: true, message: data.message });
       }
     } catch (err) {
+      setMessage({
+        show: true,
+        message: "Login Successful, routing to home page",
+      });
       setError({
         isError: true,
         message: err.response.data.message,
@@ -112,6 +120,14 @@ const Login = () => {
           </form>
         </div>
       </div>
+      <Modal
+        isOpen={error.isError}
+        onClose={() => {
+          setError({ ...error, isError: false });
+        }}
+      >
+        {error.message}
+      </Modal>
     </div>
   );
 };

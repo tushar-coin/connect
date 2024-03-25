@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import BUTTON from "@/ui-components/BUTTON";
 import Link from "next/link";
 import axios from "axios";
+import Modal from "@/ui-components/modal";
 
 const Signup = () => {
   const [user, setUser] = useState({
@@ -55,7 +56,6 @@ const Signup = () => {
         },
       });
       res = await res.data;
-      console.log(res);
       if (res.success) {
         alert("Signup successful");
         router.push("/auth/login");
@@ -66,13 +66,13 @@ const Signup = () => {
         });
       }
     } catch (err) {
-      console.log(err.response.data.message);
       setError({
         isError: true,
         message: err.response.data.message,
       });
     }
   };
+  console.log(error);
 
   return (
     <div>
@@ -187,13 +187,6 @@ const Signup = () => {
                 Confirm Password
               </label>
             </div>
-            <div>
-              {error.isError ? (
-                <span className="text-red-600 text-sm">{error.message}</span>
-              ) : (
-                <></>
-              )}
-            </div>
             <div className="flex justify-center">
               {disabled ? (
                 <BUTTON text="Signup" type="button" disabled />
@@ -215,6 +208,14 @@ const Signup = () => {
           </form>
         </div>
       </div>
+      <Modal
+        isOpen={error.isError}
+        onClose={() => {
+          setError({ ...error, isError: false });
+        }}
+      >
+        {error.message}
+      </Modal>
     </div>
   );
 };

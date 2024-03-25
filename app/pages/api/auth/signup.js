@@ -22,7 +22,7 @@ const passwordSchema = z
 const handler = async (req, res) => {
   const { method, body } = req;
   if (method != "PUT") {
-    res.status(401).json({
+    res.status(405).json({
       success: false,
       message: "Method not allowed",
     });
@@ -38,26 +38,23 @@ const handler = async (req, res) => {
     });
     return;
   }
-  const secret = process.env.JWT_SECRET;
   let user = body.user;
   // verify user format using ZOD
 
   try {
     await passwordSchema.parseAsync(user.password);
   } catch (err) {
-    res
-      .status(401)
-      .json({
-        success: false,
-        message:
-          "Password must contain atleast 8 character, a capital and small letter and a special character",
-      });
+    res.status(400).json({
+      success: false,
+      message:
+        "Password must contain atleast 8 character, a capital and small letter and a special character",
+    });
     console.log(err);
   }
 
   const check = await User.findOne({ email: user.email });
   if (check) {
-    res.status(402).json({
+    res.status(403).json({
       success: false,
       message: "User already exists",
     });
@@ -79,10 +76,9 @@ const handler = async (req, res) => {
 
   try {
     const result = await user.save();
-    // res.setHeader("Set-Cookie", [`token=${token}; Max-Age=36000; HttpOnly`]);
     res.json({ success: true });
   } catch (err) {
-    res.send({ success: false, message: "some error occurred" });
+    res.status(500).json({ success: false, message: "Server Error" });
   }
 };
 
