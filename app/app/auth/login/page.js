@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import BUTTON from "@/ui-components/BUTTON";
 import Modal from "@/ui-components/modal";
@@ -24,17 +24,38 @@ const Login = () => {
     message: "",
   });
 
+  useEffect(() => {
+    try {
+      axios.post("/api/auth/login", { user }).then((res) => {
+        const data = res.data;
+        console.log("DATA : " + data);
+        if (data.success) {
+          router.push("/");
+        } else {
+          setError({ isError: true, message: data.message });
+        }
+      });
+    } catch (err) {
+      setError({
+        isError: true,
+        message: err.response.data.message,
+      });
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post("/api/auth/login", { user });
       const data = res.data;
+      console.log("DATA : " + data);
       if (data.success) {
         router.push("/");
       } else {
         setError({ isError: true, message: data.message });
       }
     } catch (err) {
+      console.log(err);
       setMessage({
         show: true,
         message: "Login Successful, routing to home page",
@@ -120,14 +141,14 @@ const Login = () => {
           </form>
         </div>
       </div>
-      <Modal
+      {/* <Modal
         isOpen={error.isError}
         onClose={() => {
           setError({ ...error, isError: false });
         }}
       >
         {error.message}
-      </Modal>
+      </Modal> */}
     </div>
   );
 };

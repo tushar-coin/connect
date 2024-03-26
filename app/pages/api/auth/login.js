@@ -1,10 +1,12 @@
+import getToken from "@/Helper/getToken";
 import dbConnect from "@/lib/dbConnect";
 import bcrypt from "bcryptjs";
 const User = require("@/models/user.js");
 const jwt = require("jsonwebtoken");
 
 const handler = async (req, res) => {
-  if (req.headers.token) {
+  const token = getToken(req);
+  if (token) {
     res.status(200).json({ success: true, message: "Logged in" });
     return;
   }
@@ -28,7 +30,6 @@ const handler = async (req, res) => {
   }
   const secret = process.env.JWT_SECRET;
   let user = body.user;
-  // verify user format using ZOD
 
   const check = await User.findOne({ email: user.email });
   if (!check) {
@@ -75,3 +76,6 @@ const handler = async (req, res) => {
 };
 
 export default handler;
+
+
+// /api/auth/login

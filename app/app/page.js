@@ -51,7 +51,7 @@ const Home = () => {
             <UserCard user={user} />
           </div>
 
-          <div className="basis-[55%] h-[85%] no-scrollbar bg-slate-700 mx-auto my-5 p-5 rounded-lg overflow-hidden hover:overflow-y-auto">
+          <div className="basis-[55%] h-[85%] bg-slate-700 mx-auto my-5 p-5 rounded-lg overflow-y-auto">
             <Post />
           </div>
 
