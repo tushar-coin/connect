@@ -61,7 +61,7 @@ const sendVerificationEmail = async (
           <div class="container">
             <h1>Hello ${firstName},</h1>
             <p>Please verify your email address by clicking on the following button:</p>
-            <a class="button" href="http://localhost:3000/auth/verifyEmail?token='${activation_token}'">Verify Email</a>
+            <a class="button" href="http://localhost:3000/auth/verifyEmail?token=${activation_token}">Verify Email</a>
           </div>
         </body>
         </html>
