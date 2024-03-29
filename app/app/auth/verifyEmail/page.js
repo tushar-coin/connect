@@ -1,12 +1,14 @@
 "use client";
 
-const { useEffect } = require("react");
+const { useEffect, useState } = require("react");
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
 
 const verifyEmail = ({ params }) => {
   const searchParams = useSearchParams();
   const token = searchParams.get('token')
+
+  const [val, setVal] = useState("Trying to verify Email")
   useEffect(() => {
     axios
       .post("/api/auth/verifyEmail", {
@@ -14,28 +16,19 @@ const verifyEmail = ({ params }) => {
       })
       .then((res) => {
         console.log(res);
+        setVal("Email Verified")
       })
       .catch((err) => {
         console.log(err);
+        setShowButton(true);
+        setVal("Link Has Expired")
       });
   }, []);
   console.log(params)
 
   return (
     <div>
-      <h1>Verify Email</h1>
-      <p>Please check your email for a verification link.</p>
-      <p>
-        If you did not receive the email, please click
-        {/* <button
-        onClick={(e) => {
-          sendVerificationEmail()
-        }}
-        >
-          Resend verification link
-        </button> */}
-        .
-      </p>
+      <h1>{val}</h1>
     </div>
   );
 };
