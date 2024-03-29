@@ -1,7 +1,6 @@
 "use client";
 
 const { useEffect } = require("react");
-// import sendVerificationEmail from "@/Helper/sendVerificationEmail";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
 

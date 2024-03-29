@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 const User = require("@/models/user.js");
 import { z } from "zod";
 import sendVerificationEmail from "@/Helper/sendVerificationEmail";
+const jwt = require('jsonwebtoken');
 
 const passwordSchema = z
   .string()
@@ -65,7 +66,26 @@ const handler = async (req, res) => {
   // encrypt password using bcrypt and add salt
   let salt = await bcrypt.genSalt(10);
   let password = await bcrypt.hash(user.password, salt);
-  let activation_token = await bcrypt.genSalt(10);
+
+  
+  const secret = process.env.JWT_SECRET;
+  const activation_token = jwt.sign(
+    {
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    },
+    secret 
+  );
+
+  try{
+    const decoded = jwt.verify(activation_token, secret);
+        console.log("token verified");
+  }
+  catch (err) {
+    console.error('Token verification failed:', err.message);
+    return res.status(401).send("Invalid or expired token");
+  }
 
   user = new User({
     firstName: user.firstName,
