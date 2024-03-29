@@ -4,33 +4,72 @@ const { useEffect, useState } = require("react");
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
 
-const verifyEmail = ({ params }) => {
+const VerifyEmail = ({ params }) => {
   const searchParams = useSearchParams();
-  const token = searchParams.get('token')
+  const token = searchParams.get('token');
 
-  const [val, setVal] = useState("Trying to verify Email")
-  useEffect(() => {
-    axios
-      .post("/api/auth/verifyEmail", {
-        token
-      })
-      .then((res) => {
-        console.log(res);
-        setVal("Email Verified")
+  const [verificationStatus, setVerificationStatus] = useState('Verifying your email...');
+  const [showResendButton, setShowResendButton] = useState(false);
+
+  const resendVerificationEmail = () => {
+    axios.post("/api/auth/resendVerification", { token }) // Update accordingly
+      .then(() => {
+        setVerificationStatus("A new verification link has been sent to your email.");
+        setShowResendButton(false);
       })
       .catch((err) => {
-        console.log(err);
-        setShowButton(true);
-        setVal("Link Has Expired")
+        console.error(err);
+        setVerificationStatus("Failed to resend verification email. Please try again later.");
       });
-  }, []);
-  console.log(params)
+  };
+
+  useEffect(() => {
+    axios.post("/api/auth/verifyEmail", { token })
+      .then((res) => {
+        console.log(res);
+        setVerificationStatus("Email Verified Successfully!");
+        setShowResendButton(false);
+      })
+        .catch((err) => {
+        console.log(err);
+        setVerificationStatus("Link Has Expired.");
+        setShowResendButton(true);
+      });
+  }, [token]);
+
+  // Inline styles
+  const styles = {
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '20px',
+    },
+    resendButton: {
+      marginTop: '20px',
+      padding: '10px 20px',
+      backgroundColor: '#007bff',
+      color: 'white',
+      border: 'none',
+      borderRadius: '5px',
+      cursor: 'pointer',
+      transition: 'background-color 0.2s',
+    }
+  };
 
   return (
-    <div>
-      <h1>{val}</h1>
+    <div style={styles.container}>
+      <h1>{verificationStatus}</h1>
+      {showResendButton && (
+        <button style={styles.resendButton} onClick={resendVerificationEmail}>
+          Resend Verification Email
+        </button>
+      )}
     </div>
   );
 };
 
-export default verifyEmail;
+export default VerifyEmail;
+
+

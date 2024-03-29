@@ -16,34 +16,59 @@ const handler = async (req, res) => {
         return;
       }
     
-    console.log(req.body);
-    console.log("verified link clicked");
-    console.log(req.body)
-    const token = req.body.token;
-    console.log(token);
+      const token = req.body.token;
 
     if (!token) {
         return res.status(400).send("Token must be provided");
     }
 
     try {
-        // Verify and decode the token
-        console.log("secret is "+ SECRET_KEY);
         const decoded = jwt.verify(token, SECRET_KEY);
+        // console.log(decoded);
         console.log("token verified");
-        // Find the user by their email or ID from the decoded token
-        // Assuming the decoded token contains the user's email in a 'sub' claim
-        const user = await User.findOne({ email: decoded.sub });
+        const user = await User.findOne({ email: decoded.email});
 
-        if (!user) {
+
+        // console.log("user fetched from database: - "+ user);
+
+        if (user==null) {
+          console.log("user not found");
             return res.status(404).send("User not found");
         }
 
-        // Update the user's verification status
-        user.emailVerified = true;
-        await user.save();
+        // Calculate token expiration based on Act_token_lastSentDate and token_expiration
+        const tokenExpirationDate = new Date(user.Act_token_lastSentDate.getTime() + user.token_expiration * 1000);
+        const now = new Date();
 
-        res.send("Email verified successfully");
+        // console.log("Now time-> " + now);
+        // console.log("Passed time-> " + tokenExpirationDate);
+        
+        // Check if the token has expired
+        if (now > tokenExpirationDate) {
+            return res.status(401).send("Token has expired");
+        }
+
+        // Proceed if the token is not expired
+        if (user.email_verified==false) {
+          const filter = { email: user.email };
+          const update = { $set: { "email_verified": true } };
+          const options = { new: true };
+          
+          User.findOneAndUpdate(filter, update, options)
+            .then(updatedUser => {
+              console.log("Updated user:", updatedUser);
+            })
+            .catch(err => {
+              console.error("Error updating user:", err);
+            });
+
+            res.send("Email is verified");
+          
+          } else {
+              console.log("User's email was already verified");
+              res.send("Email is already verified");
+          }
+
     } catch (err) {
         console.error('Token verification failed:', err.message);
         return res.status(401).send("Invalid or expired token");
@@ -52,35 +77,3 @@ const handler = async (req, res) => {
 
 export default handler;
 
-
-//   const { method, headers } = req;
-//   if (method != "POST") {
-//     res.status(401).json({
-//       success: false,
-//       message: "Method not allowed",
-//     });
-//     return;
-//   } 
-
-//   try {
-//     const db = await dbConnect();
-//   } catch (err) {
-//     res.status(500).json({
-//       success: false,
-//       message: "Database connection failed",
-//     });
-//     return;
-//   }
-
-//   try {
-//     let token = headers.token;
-//     token = jwt.verify(token, process.env.JWT_SECRET);
-//     const user = await User.findOneAndUpdate(
-//       { email: token.email },
-//       { $set: { emailVerified: true } },
-//       { new: true }
-//     );
-//     res.json({ success: true });
-//   } catch (err) {
-//     return res.status(401).json({ success: false, message: "Invalid token" });
-//   }
