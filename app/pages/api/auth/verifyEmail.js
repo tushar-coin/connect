@@ -3,7 +3,7 @@ const User = require("@/models/user.js");
 const jwt = require("jsonwebtoken");
 
 const handler = async (req, res) => {
-    console.log(req);
+    console.log(req.body);
     console.log("verified link clicked");
     res.send("hello world");
 //   const { method, headers } = req;
