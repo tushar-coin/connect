@@ -33,7 +33,7 @@ const handler = async (req, res) => {
 
   const check = await User.findOne({ email: user.email });
   if (!check) {
-    res.status(402).json({
+    res.status(401).json({
       success: false,
       message: "User Not Found",
     });
@@ -60,7 +60,7 @@ const handler = async (req, res) => {
       );
       res.status(200).json({ success: true, message: "Logged in" });
     } else {
-      res.status(402).json({
+      res.status(401).json({
         success: false,
         message: "User Not Found",
       });
