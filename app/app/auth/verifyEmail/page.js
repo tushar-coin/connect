@@ -26,8 +26,12 @@ const VerifyEmail = ({ params }) => {
   useEffect(() => {
     axios.post("/api/auth/verifyEmail", { token })
       .then((res) => {
-        console.log(res);
+        console.log("From frontend response-> "+res);
+        if(res.status == "200")
+        setVerificationStatus("Email is already Verified Successfully!");
+        else
         setVerificationStatus("Email Verified Successfully!");
+
         setShowResendButton(false);
       })
         .catch((err) => {

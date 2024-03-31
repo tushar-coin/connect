@@ -56,7 +56,7 @@ const handler = async (req, res) => {
           
           User.findOneAndUpdate(filter, update, options)
             .then(updatedUser => {
-              console.log("Updated user:", updatedUser);
+              // console.log("Updated user:", updatedUser);
             })
             .catch(err => {
               console.error("Error updating user:", err);
@@ -65,8 +65,8 @@ const handler = async (req, res) => {
             res.send("Email is verified");
           
           } else {
-              console.log("User's email was already verified");
-              res.send("Email is already verified");
+              console.log("User's email was already verified, RESPONSE FROM BACKEND");
+              res.status(200).send("Email is already verified");
           }
 
     } catch (err) {
