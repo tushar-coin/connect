@@ -36,6 +36,7 @@ const Home = () => {
     //////
     //////
   }, []);
+  
   if (!user.profilePic) {
     user.profilePic = defaultProfilePic;
   }

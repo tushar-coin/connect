@@ -12,7 +12,7 @@ const VerifyEmail = ({ params }) => {
   const [showResendButton, setShowResendButton] = useState(false);
 
   const resendVerificationEmail = () => {
-    axios.post("/api/auth/resendVerification", { token }) // Update accordingly
+    axios.post("/api/auth/resendVerification", { token }) 
       .then(() => {
         setVerificationStatus("A new verification link has been sent to your email.");
         setShowResendButton(false);
@@ -41,11 +41,12 @@ const VerifyEmail = ({ params }) => {
       });
   }, [token]);
 
-  // Inline styles
   const styles = {
     container: {
       display: 'flex',
       flexDirection: 'column',
+      border: '1px solid #ddd',
+      borderRadius: 5,
       alignItems: 'center',
       justifyContent: 'center',
       padding: '20px',
