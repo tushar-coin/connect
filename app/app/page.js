@@ -36,7 +36,7 @@ const Home = () => {
     //////
     //////
   }, []);
-  
+
   if (!user.profilePic) {
     user.profilePic = defaultProfilePic;
   }
@@ -53,6 +53,9 @@ const Home = () => {
           </div>
 
           <div className="basis-[55%] h-[85%] bg-slate-700 mx-auto my-5 p-5 rounded-lg overflow-y-auto">
+            <Post />
+            <Post />
+            <Post />
             <Post />
           </div>
 

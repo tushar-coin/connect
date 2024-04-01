@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import defaultProfilePic from "@/public/images/profileImageDefault.png";
+import defaultProfilePic from "@/public/images/rajan.png";
 import moment from 'moment';
 import { useEffect, useState } from "react";
 
@@ -17,8 +17,8 @@ const Post = (porps) => {
   };
 
   const postData = {
-    user: "SOME USER",
-    content: "This is my post",
+    user: "Tushar Bairi",
+    content: "Recently i got joined to CVENT tech gaint. It is a great platform for learning and growing. New people, New Journey, everything is making me overwhelming.",
     likedByMe: likedByMe,
     likeCounter: likeCounter,
     commentCount: 5, // Assuming a hardcoded value for comment count
@@ -33,7 +33,7 @@ if (timeDifference.asHours() < 1) {
 } else {
   timeAgo = `${Math.floor(timeDifference.asHours())} hours ago`;
 }
-  return (
+   return (
     <div className="border rounded-md p-4 mb-4">
       {/* Profile Picture */}
       <Image
@@ -57,7 +57,7 @@ if (timeDifference.asHours() < 1) {
         {/* Like Button and Counter */}
         <div className="flex items-center mb-2">
           <button
-            className={`mr-2 ${likedByMe ? "text-red-500" : "text-gray-500"}`}
+            className={`mr-2 "text-gray-500}`}
             onClick={handleLikeClick}
           >
             {likedByMe ? "Unlike" : "Like"}
