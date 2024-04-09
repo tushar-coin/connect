@@ -13,11 +13,12 @@ const queries={
         return Posts
     },
     getWhoLiked: async (_:any,payload:{postId:string})=>{
-        const Data=await prismaClient.post.findFirst({
+        const Data=await prismaClient.post.findMany({
             where:{
                 id:payload.postId
             }
         })
+        console.log(Data);
         return Data
     },
     getWhoMarkedScam: async (_:any,payload:{postId:string})=>{
