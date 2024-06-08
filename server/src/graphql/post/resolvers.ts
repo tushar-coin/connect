@@ -60,13 +60,13 @@ const mutations={
                 id:payload.postId
             }
         })
-        data?.likesCounter.push(payload.userId)
+        data?.likeCounter.push(payload.userId)
         await prismaClient.post.update({
             where:{
                 id:payload.postId
             },
             data:{
-                likesCounter:data?.likesCounter
+                likeCounter:data?.likeCounter
             }
          })
     },

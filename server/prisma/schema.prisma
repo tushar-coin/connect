@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgres://postgres:threads@localhost:5432/threads"
 }
 
 model User{
@@ -23,6 +23,18 @@ model User{
   email String @unique
 
   @@map("users")
+
+}
+
+model Post{
+  id String @id @default(uuid())
+  content String 
+  email String?
+  creator String @default(uuid())
+  likeCounter String[]
+  spamCounter String[]
+
+  @@map("posts")
 
 }
 // npx prisma migrate dev --name update_user_table
