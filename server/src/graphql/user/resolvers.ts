@@ -1,8 +1,8 @@
 import { prismaClient } from "../../lib/db";
 const queries={
-  getUser : async(_:any,payload:{email:string,profileImageUrl:string})=>{
-      const User=await prismaClient.user.findMany({where:{
-        profileImageUrl: null
+  getUser : async(_:any,payload:{email:string})=>{
+      const User=await prismaClient.user.findFirst({where:{
+        email:payload.email
       }})
       // console.log(User);
       return User

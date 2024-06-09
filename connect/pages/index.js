@@ -30,7 +30,7 @@ const GETUSER = gql`
 `;
 
 const GETPOSTS = gql`
-  query GetPosts {
+  query getPosts {
     getPosts {
       content
       creator
