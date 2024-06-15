@@ -21,22 +21,6 @@ const StudentInfoPage = () => {
   // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const CREATE_USER = gql`
-      mutation CreateUser(
-        $firstName: String!
-        $lastName: String!
-        $email: String!
-        $password: String!
-      ) {
-        createUser(firstName: $firstName, lastName: $lastName, email: $email, password: $password)
-        }
-     `;
-    // backend mai data and redirection
-    const [createuser, { loading, error, data }] = useLazyMutation(CREATE_USER);
-    await createuser({
-      variables: { firstName, lastName, email, password },
-    });
     router.push("/");
   };
 
@@ -50,13 +34,13 @@ const StudentInfoPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100 p-4">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-200 p-4">
       <h1 className="text-3xl font-bold mb-6 text-black">
         Student Information
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white p-6 rounded-lg shadow-md"
+        className="w-full max-w-md bg-blue-300 p-6 rounded-lg shadow-md"
       >
         <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
@@ -143,7 +127,6 @@ const StudentInfoPage = () => {
             id="subjects"
             name="subjects"
             multiple
-            autofocus
             value={subjects}
             onChange={handleSubjectChange}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
