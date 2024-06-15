@@ -23,13 +23,14 @@ const passwordSchema = z
 
 const handler = async (req, res) => {
   const { method, body } = req;
-  if (method != "PUT") {
-    res.status(405).json({
-      success: false,
-      message: "Method not allowed",
-    });
-    return;
-  }
+  console.log("method"+method);
+  // if (method != "PUT") {
+  //   res.status(405).json({
+  //     success: false,
+  //     message: "Method not allowed",
+  //   });
+  //   return;
+  // }
 
   try {
     const db = await dbConnect();
@@ -41,6 +42,7 @@ const handler = async (req, res) => {
     return;
   }
   let user = body.user;
+  console.log(user);
   // verify user format using ZOD
 
   try {
