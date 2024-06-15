@@ -13,6 +13,7 @@ const mutations={
         {firstName,lastName,email,password}:
         {firstName:string,lastName:string,email:string,password:string}
         )=>{
+           console.log("ddd");
            const createdUser=await prismaClient.user.create({data:{
             firstName,
             lastName,
@@ -20,7 +21,7 @@ const mutations={
             password,
             salt:"123"
            }}) 
-          return createdUser.id
+          return [createdUser.id]
     }
 };
 
