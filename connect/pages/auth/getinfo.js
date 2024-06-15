@@ -18,6 +18,24 @@ const StudentInfoPage = () => {
   // to be deleted
   const password = "123";
 
+  // const CREATE_USER = gql`
+  //     mutation CreateUser(
+  //       $firstName: String!
+  //       $lastName: String!
+  //       $email: String!
+  //       $password: String!
+  //     ) {
+  //       createUser(firstName: $firstName, lastName: $lastName, email: $email, password: $password)
+  //       }
+  //    `;
+  //   // backend mai data and redirection
+  //   const [createuser, { loading, error, data }] = useLazyMutation(CREATE_USER);
+  //   await createuser({
+  //     variables: { firstName, lastName, email, password },
+  //   });
+  //   router.push("/");
+  // };
+
   // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -34,7 +52,7 @@ const StudentInfoPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-200 p-4">
+    <div className="flex flex-col justify-center items-center min-h-screen  p-4">
       <h1 className="text-3xl font-bold mb-6 text-black">
         Student Information
       </h1>
@@ -43,7 +61,7 @@ const StudentInfoPage = () => {
         className="w-full max-w-md bg-blue-300 p-6 rounded-lg shadow-md"
       >
         <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
+          <label htmlFor="name" className="block text-black-700 font-bold mb-2">
             First Name
           </label>
           <input
